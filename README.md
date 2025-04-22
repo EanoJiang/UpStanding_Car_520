@@ -4,6 +4,8 @@
 
 本项目是基于STM32F103C8T6单片机的自平衡两轮小车，通过MPU6050陀螺仪和加速度计传感器实现平衡控制，可以实现直立平衡、遥控行驶以及避障等功能。
 
+<video src="video.mp4" controls="controls" width="500" height="300"></video>
+
 ## 功能特点
 
 - **自动平衡功能**：利用PID控制算法和MPU6050 DMP算法保持小车直立平衡
