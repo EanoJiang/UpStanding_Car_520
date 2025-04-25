@@ -55,6 +55,7 @@
 /* USER CODE BEGIN PV */
 extern float roll;
 extern int Encoder_Left,Encoder_Right;
+//显示缓冲区
 uint8_t display_buf[20];
 uint32_t sys_tick;
 extern float distance;
@@ -112,14 +113,22 @@ int main(void)
 	MPU_Init();
 	mpu_dmp_init();
 	OLED_ShowString(0,00,"Init Sucess",16);
+  // 定时器
+  // 初始化
 	HAL_NVIC_SetPriority(EXTI9_5_IRQn, 0, 0);
+  // 使能
   HAL_NVIC_EnableIRQ(EXTI9_5_IRQn);
+  // 启动
 	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_1);
 	HAL_TIM_PWM_Start(&htim1,TIM_CHANNEL_4);
+  //编码器初始化
 	HAL_TIM_Encoder_Start(&htim2,TIM_CHANNEL_ALL);
 	HAL_TIM_Encoder_Start(&htim4,TIM_CHANNEL_ALL);
+  //串口初始化
 	HAL_UART_Receive_IT(&huart3,rx_buf,1);
+  //电机初始化  
 	Load(0,0);
+  //清屏
 	OLED_Clear();
   /* USER CODE END 2 */
 
@@ -127,13 +136,20 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    //显示左轮编码器
+    //先存储到字符串数组display_buf中缓存
 		sprintf((char *)display_buf,"Encoder_L:%d   ",Encoder_Left);
+    //显示到OLED屏幕
 		OLED_ShowString(0,0,display_buf,16);
+		//显示右轮编码器
 		sprintf((char *)display_buf,"Encoder_R:%d   ",Encoder_Right);
 		OLED_ShowString(0,2,display_buf,16);		
+		//显示陀螺仪
 		sprintf((char *)display_buf,"roll:%.1f   ",roll); 
 		OLED_ShowString(0,4,display_buf,16);
+    //获取超声波数据
 		GET_Distance();
+    //显示超声波
 		sprintf((char *)display_buf,"distance:%.1f  ",distance);
 		OLED_ShowString(0,6,display_buf,12);
     /* USER CODE END WHILE */

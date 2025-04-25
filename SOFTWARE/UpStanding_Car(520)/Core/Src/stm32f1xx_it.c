@@ -202,6 +202,7 @@ void SysTick_Handler(void)
 /**
   * @brief This function handles EXTI line2 interrupt.
   */
+ //外部中断2——超声波
 void EXTI2_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI2_IRQn 0 */
@@ -216,6 +217,7 @@ void EXTI2_IRQHandler(void)
 /**
   * @brief This function handles EXTI line[9:5] interrupts.
   */
+ //外部中断5——MPU6050 DMP
 void EXTI9_5_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI9_5_IRQn 0 */
@@ -230,6 +232,7 @@ void EXTI9_5_IRQHandler(void)
 /**
   * @brief This function handles USART3 global interrupt.
   */
+ //串口3中断——蓝牙
 void USART3_IRQHandler(void)
 {
   /* USER CODE BEGIN USART3_IRQn 0 */

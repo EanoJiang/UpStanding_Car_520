@@ -15,6 +15,7 @@ short	aacx,aacy,aacz;
 //闭环控制中间变量
 int Vertical_out,Velocity_out,Turn_out,Target_Speed,Target_turn,MOTO1,MOTO2;
 
+//pid调参
 float Med_Angle=2.438;//平衡时角度值偏移量（机械中值）
 //参数
 float Vertical_Kp=-252,Vertical_Kd=-3;			//直立环 数量级（Kp：0~1000、Kd：0~10）
@@ -22,18 +23,17 @@ float Vertical_Kp=-252,Vertical_Kd=-3;			//直立环 数量级（Kp：0~1000、K
 float Velocity_Kp=-0.4,Velocity_Ki=-0.002;		//速度环 数量级（Kp：0~1） 速度环的ki = kp/200
 float Turn_Kp=10,Turn_Kd=0.1;											//转向环
 
+//平衡状态标志
 uint8_t stop;
-uint8_t balance_state = 1; // 平衡状态标志：1表示平衡，0表示失去平衡
-
+uint8_t balance_state = 1; 	// 平衡状态标志：1表示平衡，0表示失去平衡
 // 平衡角度阈值，超过此角度认为失去平衡
 #define BALANCE_ANGLE_THRESHOLD 40.0f
 
 extern TIM_HandleTypeDef htim2,htim4;
 extern float distance;
 extern uint8_t Fore,Back,Left,Right;
-#define SPEED_Y 15.0f
-  //俯仰(前后)最大设定速度
-#define SPEED_Z 150//偏航(左右)最大设定速度 
+#define SPEED_Y 15.0f	//俯仰(前后)最大设定速度
+#define SPEED_Z 150		//偏航(左右)最大设定速度 
 
 // 检查平衡车是否处于平衡状态
 uint8_t Is_Balance(float angle)
