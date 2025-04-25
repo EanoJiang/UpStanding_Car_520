@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "encoder.h": "c",
+        "gpio.h": "c",
+        "motor.h": "c",
+        "inv_mpu_dmp_motion_driver.h": "c",
+        "sr04.h": "c",
+        "main.h": "c",
+        "mpu6050.h": "c",
+        "pid.h": "c"
+    }
+}

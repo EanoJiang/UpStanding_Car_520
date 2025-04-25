@@ -7,9 +7,14 @@
 #include "math.h"
 
 //传感器数据变量
+//编码器
 int Encoder_Left,Encoder_Right;
+//陀螺仪
+// 角度计变量———— pitch：俯仰角度，roll：横滚角度，yaw：偏航角度
 float pitch,roll,yaw;
+//	角速度计变量———— gyrox:俯仰角速度，gyroy:横滚角速度，gyroz:偏航角速度
 short gyrox,gyroy,gyroz;
+// 加速度计变量————aacx,aacy,aacz
 short	aacx,aacy,aacz;
 
 //闭环控制中间变量
