@@ -12,6 +12,7 @@
         "tim.h": "c",
         "stm32f1xx_it.h": "c",
         "i2c.h": "c",
-        "oled.h": "c"
+        "oled.h": "c",
+        "inv_mpu.h": "c"
     }
 }
