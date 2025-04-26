@@ -140,16 +140,27 @@ void OLED_ShowChar(uint8_t x,uint8_t y,uint8_t chr,uint8_t Char_Size)
 }
  
 //显示一个字符号串
-void OLED_ShowString(uint8_t x,uint8_t y,uint8_t *chr,uint8_t Char_Size)
+void OLED_ShowString(uint8_t x, uint8_t y, uint8_t *chr, uint8_t Char_Size)
 {
-	unsigned char j=0;
-	while (chr[j]!='\0')
-	{		OLED_ShowChar(x,y,chr[j],Char_Size);
-			x+=8;
-		if(x>120){x=0;y+=2;}
-			j++;
-	}
+    unsigned char j = 0;  // 定义一个无符号字符变量j，作为索引来遍历字符串
+
+    // 字符串结束符'\0'
+    while (chr[j] != '\0')
+    {
+        OLED_ShowChar(x, y, chr[j], Char_Size);  // 在指定位置显示单个字符
+        x += 8;  // 每个字符占用8个像素的宽度
+
+        // 如果x坐标大于120（当前行已满），则将x坐标重置为0，并将y坐标增加2以换行
+        if (x > 120)
+        {
+            x = 0;  // 从新的一行开始显示
+            y += 2;  // 换行
+        }
+
+        j++;  // 在下一次循环中处理字符串的下一个字符
+    }
 }
+
 //显示汉字
 //hzk 用取模软件得出的数组
 void OLED_ShowCHinese(uint8_t x,uint8_t y,uint8_t no)

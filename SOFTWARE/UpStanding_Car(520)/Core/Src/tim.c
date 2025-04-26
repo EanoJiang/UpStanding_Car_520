@@ -44,6 +44,7 @@ void MX_TIM1_Init(void)
   /* USER CODE BEGIN TIM1_Init 1 */
 
   /* USER CODE END TIM1_Init 1 */
+  //系统时钟频率为72 MHz，则一个周期的时间为：7200/72000000 = 0.1ms，一个周期总时间毫秒
   htim1.Instance = TIM1;
   htim1.Init.Prescaler = 0;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
