@@ -7,6 +7,9 @@
         "sr04.h": "c",
         "main.h": "c",
         "mpu6050.h": "c",
-        "pid.h": "c"
+        "pid.h": "c",
+        "usart.h": "c",
+        "tim.h": "c",
+        "stm32f1xx_it.h": "c"
     }
 }

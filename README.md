@@ -4,7 +4,7 @@
 
 本项目是基于STM32F103C8T6单片机的自平衡两轮小车，通过MPU6050陀螺仪和加速度计传感器实现平衡控制，可以实现直立平衡、遥控行驶以及避障等功能。
 
-[<video src="video.mp4" controls="controls" width="500" height="300"></video>](https://github.com/user-attachments/assets/a6912871-1006-47c7-8a1c-eaa25079c848)
+[`<video src="video.mp4" controls="controls" width="500" height="300"></video>`](https://github.com/user-attachments/assets/a6912871-1006-47c7-8a1c-eaa25079c848)
 
 ## 功能特点
 
@@ -41,28 +41,23 @@
 本项目软件基于STM32 HAL库开发，主要包括以下模块：
 
 - **姿态解算模块**：使用MPU6050 DMP算法获取Roll、Pitch、Yaw角度
-
 - **平衡控制模块**：采用串级PID控制，包括直立环、速度环和转向环
-
 - **电机驱动模块**：控制电机的PWM输出和方向
-
 - **超声波测距模块**：通过测量超声波发射到接收的时间计算距离
-
 - **OLED显示模块**：显示系统状态和传感器数据
-
 - **编码器解码模块**：读取电机编码器信息，计算实际速度
 
   中断函数：
 
   1. 外部中断
 
-  - void EXTI2_IRQHandler(void) // 对应 PA2，SR04 超声波 ECHO 上升/下降沿
-
-  - void EXTI9_5_IRQHandler(void) // 对应 PB5，MPU6050 DMP 中断
+  - void EXTI2_IRQHandler(void) // 对应 PA2，SR04 超声波 ECHO 上升/下降沿，EXTI2_IRQn 抢占优先级 0，子优先级 0
+  - void EXTI9_5_IRQHandler(void) // 对应 PB5，MPU6050 DMP 中断，EXTI9_5_IRQn 抢占优先级 0，子优先级 0
 
   1. 串口中断
 
-  - void USART3_IRQHandler(void) // 串口3，用于接收蓝牙模块数据
+  - void USART3_IRQHandler(void) // 串口3，用于接收蓝牙模块数据，USART3_IRQn  0／0
+  - 滴答定时器优先级15/0
 
 ### 控制算法
 
@@ -129,7 +124,7 @@ UpStanding_Car(520)/
 ## 注意事项
 
 1. 首次使用时，请在平坦表面放置小车，确保其能够稳定平衡
-2. 若小车无法平衡，可能需要调整`Med_Angle`参数来适应机械结构
+2. 若小车无法平衡，可能需要调整 `Med_Angle`参数来适应机械结构
 3. 不同的电池电量可能会影响平衡性能，请保持电池充足
 4. 请避免在湿滑或不平坦的表面使用
 5. 小车倒下时会自动切断电机电源，再次使用需要重新扶正重启
@@ -164,7 +159,7 @@ int Velocity(int Target, int encoder_L, int encoder_R)
     static int Err_LowOut_last, Encoder_S;
     static float a = 0.7;
     int Err, Err_LowOut, temp;
-    
+  
     //1、计算偏差值
     Err = (encoder_L + encoder_R) - Target;
     //2、低通滤波
@@ -174,7 +169,7 @@ int Velocity(int Target, int encoder_L, int encoder_R)
     Encoder_S += Err_LowOut;
     //4、积分限幅
     Encoder_S = Encoder_S > 20000 ? 20000 : (Encoder_S < (-20000) ? (-20000) : Encoder_S);
-    
+  
     //5、速度环计算
     temp = Velocity_Kp * Err_LowOut + Velocity_Ki * Encoder_S;
     return temp;
@@ -189,7 +184,7 @@ while (1)
     sprintf((char *)display_buf,"Encoder_L:%d   ",Encoder_Left);
     OLED_ShowString(0,0,display_buf,16);
     sprintf((char *)display_buf,"Encoder_R:%d   ",Encoder_Right);
-    OLED_ShowString(0,2,display_buf,16);		
+    OLED_ShowString(0,2,display_buf,16);	
     sprintf((char *)display_buf,"roll:%.1f   ",roll); 
     OLED_ShowString(0,4,display_buf,16);
     GET_Distance();
@@ -211,9 +206,8 @@ while (1)
 
 1. STM32F103数据手册
 2. MPU6050数据手册
-3. InvenSense DMP文档
-4. PID控制理论与实践
+3. PID控制理论与实践
 
 ## 许可证
 
-本项目采用MIT许可证。详情请参阅LICENSE文件。 
+本项目采用MIT许可证。详情请参阅LICENSE文件。
